@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="RestaurantMapApp.Views.MainPage"
+             Title="Restoran Haritası"
+             Loaded="MainPage_Loaded">
+    
+    <Grid RowDefinitions="Auto,*,Auto">
+        <!-- Arama ve Filtreler -->
+        <StackLayout Grid.Row="0" Padding="15" Spacing="10" BackgroundColor="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray500}}">
+            <!-- Arama Kutusu -->
+            <Frame Padding="10" CornerRadius="25" BackgroundColor="White" HasShadow="True">
+                <Grid ColumnDefinitions="*,Auto">
+                    <Entry x:Name="SearchEntry" 
+                           Grid.Column="0"
+                           Placeholder="Restoran, mutfak türü veya adres ara..."
+                           TextChanged="SearchEntry_TextChanged" />
+                    <Button Grid.Column="1" 
+                            Text="🔍" 
+                            BackgroundColor="{StaticResource Primary}"
+                            TextColor="White"
+                            CornerRadius="20"
+                            Padding="10,8"
+                            Clicked="SearchButton_Clicked" />
+                </Grid>
+            </Frame>
+            
+            <!-- Filtreler -->
+            <ScrollView Orientation="Horizontal" HorizontalScrollBarVisibility="Never">
+                <StackLayout Orientation="Horizontal" Spacing="10">
+                    <Button Text="📍 İstanbul" 
+                            BackgroundColor="{StaticResource Primary}" 
+                            TextColor="White" 
+                            CornerRadius="20" 
+                            Padding="15,8"
+                            Clicked="CenterOnIstanbul_Clicked" />
+                    
+                    <Button Text="🗺️ Tüm Restoranlar" 
+                            BackgroundColor="{StaticResource Secondary}" 
+                            TextColor="White" 
+                            CornerRadius="20" 
+                            Padding="15,8"
+                            Clicked="ShowAllRestaurants_Clicked" />
+                    
+                    <Button x:Name="OpenFilterButton" 
+                            Text="🟢 Açık" 
+                            BackgroundColor="{StaticResource Green100}" 
+                            TextColor="{StaticResource Green800}" 
+                            CornerRadius="20" 
+                            Padding="15,8"
+                            Clicked="OpenFilter_Clicked" />
+                    
+                    <Button x:Name="PriceFilterButton" 
+                            Text="💰 Fiyat" 
+                            BackgroundColor="{StaticResource Blue100}" 
+                            TextColor="{StaticResource Blue800}" 
+                            CornerRadius="20" 
+                            Padding="15,8"
+                            Clicked="PriceFilter_Clicked" />
+                    
+                    <Button x:Name="RatingFilterButton" 
+                            Text="⭐ Puan" 
+                            BackgroundColor="{StaticResource Yellow100}" 
+                            TextColor="{StaticResource Yellow800}" 
+                            CornerRadius="20" 
+                            Padding="15,8"
+                            Clicked="RatingFilter_Clicked" />
+                </StackLayout>
+            </ScrollView>
+        </StackLayout>
+        
+        <!-- Harita -->
+        <WebView x:Name="MapWebView" 
+                 Grid.Row="1"
+                 Navigating="MapWebView_Navigating" />
+        
+        <!-- Alt Bilgi -->
+        <StackLayout Grid.Row="2" 
+                     Padding="15" 
+                     BackgroundColor="{AppThemeBinding Light={StaticResource Gray100}, Dark={StaticResource Gray900}}"
+                     Orientation="Horizontal"
+                     HorizontalOptions="Center">
+            <Label Text="📍 " FontSize="16" />
+            <Label x:Name="RestaurantCountLabel" 
+                   Text="5 restoran bulundu" 
+                   FontSize="14" 
+                   TextColor="{AppThemeBinding Light={StaticResource Gray600}, Dark={StaticResource Gray400}}" />
+        </StackLayout>
+    </Grid>
+</ContentPage>

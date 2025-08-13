@@ -1,0 +1,287 @@
+[
+  {
+    "id": 1,
+    "name": "Burger Point",
+    "address": "Beyoğlu, İstanbul",
+    "latitude": 41.0389,
+    "longitude": 28.9855,
+    "menuUrl": "https://example.com/menu/burgerpoint",
+    "description": "Lezzetli burgerler ve fast food seçenekleri",
+    "phone": "+90 212 555 0101",
+    "website": "https://burgerpoint.com",
+    "cuisineTypes": ["Burger", "Fast Food", "Amerikan"],
+    "rating": 4.2,
+    "priceRange": 2,
+    "isOpen": true,
+    "menuItems": [
+      {
+        "id": 1,
+        "name": "Classic Burger",
+        "description": "150gr dana eti, marul, domates, soğan, özel sos",
+        "price": 45.00,
+        "category": "Ana Yemek",
+        "isAvailable": true
+      },
+      {
+        "id": 2,
+        "name": "Cheese Burger",
+        "description": "Classic burger + cheddar peyniri",
+        "price": 52.00,
+        "category": "Ana Yemek",
+        "isAvailable": true
+      },
+      {
+        "id": 3,
+        "name": "Chicken Burger",
+        "description": "Tavuk göğsü, marul, domates, ranch sos",
+        "price": 38.00,
+        "category": "Ana Yemek",
+        "isAvailable": true
+      },
+      {
+        "id": 4,
+        "name": "Patates Kızartması",
+        "description": "Çıtır çıtır altın sarısı patates",
+        "price": 18.00,
+        "category": "Yan Ürün",
+        "isAvailable": true
+      },
+      {
+        "id": 5,
+        "name": "Cola",
+        "description": "330ml soğuk içecek",
+        "price": 12.00,
+        "category": "İçecek",
+        "isAvailable": true
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Kebapçı Halil",
+    "address": "Fatih, İstanbul",
+    "latitude": 41.0082,
+    "longitude": 28.9784,
+    "menuUrl": "https://example.com/menu/kebapcihalil",
+    "description": "Geleneksel Türk mutfağı ve kebap çeşitleri",
+    "phone": "+90 212 555 0202",
+    "website": "https://kebapcihalil.com",
+    "cuisineTypes": ["Türk", "Kebap", "Geleneksel"],
+    "rating": 4.5,
+    "priceRange": 3,
+    "isOpen": true,
+    "menuItems": [
+      {
+        "id": 1,
+        "name": "Adana Kebap",
+        "description": "Özel baharatlarla hazırlanmış 200gr kıyma kebap",
+        "price": 85.00,
+        "category": "Ana Yemek",
+        "isAvailable": true
+      },
+      {
+        "id": 2,
+        "name": "Urfa Kebap",
+        "description": "Acısız, özel soslu 200gr kıyma kebap",
+        "price": 85.00,
+        "category": "Ana Yemek",
+        "isAvailable": true
+      },
+      {
+        "id": 3,
+        "name": "İskender",
+        "description": "Döner, yoğurt, domates sos, tereyağı",
+        "price": 95.00,
+        "category": "Ana Yemek",
+        "isAvailable": true
+      },
+      {
+        "id": 4,
+        "name": "Pilav",
+        "description": "Tereyağlı özel pilav",
+        "price": 25.00,
+        "category": "Yan Ürün",
+        "isAvailable": true
+      },
+      {
+        "id": 5,
+        "name": "Ayran",
+        "description": "Taze günlük ayran",
+        "price": 15.00,
+        "category": "İçecek",
+        "isAvailable": true
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Pizza Palace",
+    "address": "Kadıköy, İstanbul",
+    "latitude": 40.9909,
+    "longitude": 29.0304,
+    "menuUrl": "https://example.com/menu/pizzapalace",
+    "description": "İtalyan tarzı pizza ve pasta çeşitleri",
+    "phone": "+90 216 555 0303",
+    "website": "https://pizzapalace.com",
+    "cuisineTypes": ["Pizza", "İtalyan", "Pasta"],
+    "rating": 4.0,
+    "priceRange": 2,
+    "isOpen": true,
+    "menuItems": [
+      {
+        "id": 1,
+        "name": "Margherita Pizza",
+        "description": "Domates sos, mozzarella peyniri, fesleğen",
+        "price": 65.00,
+        "category": "Ana Yemek",
+        "isAvailable": true
+      },
+      {
+        "id": 2,
+        "name": "Pepperoni Pizza",
+        "description": "Domates sos, mozzarella, pepperoni",
+        "price": 75.00,
+        "category": "Ana Yemek",
+        "isAvailable": true
+      },
+      {
+        "id": 3,
+        "name": "Carbonara Pasta",
+        "description": "Spaghetti, yumurta, peynir, pastırma",
+        "price": 55.00,
+        "category": "Ana Yemek",
+        "isAvailable": true
+      },
+      {
+        "id": 4,
+        "name": "Tiramisu",
+        "description": "Geleneksel İtalyan tatlısı",
+        "price": 35.00,
+        "category": "Tatlı",
+        "isAvailable": true
+      },
+      {
+        "id": 5,
+        "name": "Limonata",
+        "description": "Taze sıkılmış limon suyu",
+        "price": 20.00,
+        "category": "İçecek",
+        "isAvailable": true
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Sushi Bar",
+    "address": "Beşiktaş, İstanbul",
+    "latitude": 41.0421,
+    "longitude": 29.0083,
+    "menuUrl": "https://example.com/menu/sushibar",
+    "description": "Taze sushi ve Japon mutfağı",
+    "phone": "+90 212 555 0404",
+    "website": "https://sushibar.com",
+    "cuisineTypes": ["Sushi", "Japon", "Asya"],
+    "rating": 4.7,
+    "priceRange": 4,
+    "isOpen": false,
+    "menuItems": [
+      {
+        "id": 1,
+        "name": "California Roll",
+        "description": "Yengeç, avokado, salatalık, nori",
+        "price": 120.00,
+        "category": "Ana Yemek",
+        "isAvailable": true
+      },
+      {
+        "id": 2,
+        "name": "Salmon Nigiri",
+        "description": "Taze somon, sushi pirinci",
+        "price": 45.00,
+        "category": "Ana Yemek",
+        "isAvailable": true
+      },
+      {
+        "id": 3,
+        "name": "Tuna Roll",
+        "description": "Ton balığı, avokado, nori",
+        "price": 95.00,
+        "category": "Ana Yemek",
+        "isAvailable": true
+      },
+      {
+        "id": 4,
+        "name": "Miso Çorbası",
+        "description": "Geleneksel Japon çorbası",
+        "price": 35.00,
+        "category": "Çorba",
+        "isAvailable": true
+      },
+      {
+        "id": 5,
+        "name": "Yeşil Çay",
+        "description": "Geleneksel Japon yeşil çayı",
+        "price": 15.00,
+        "category": "İçecek",
+        "isAvailable": true
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Çiğköfteci Mehmet",
+    "address": "Şişli, İstanbul",
+    "latitude": 41.0602,
+    "longitude": 28.9877,
+    "menuUrl": "https://example.com/menu/cigkofteci",
+    "description": "Geleneksel çiğköfte ve dürüm çeşitleri",
+    "phone": "+90 212 555 0505",
+    "website": "https://cigkofteci.com",
+    "cuisineTypes": ["Çiğköfte", "Türk", "Street Food"],
+    "rating": 4.3,
+    "priceRange": 1,
+    "isOpen": true,
+    "menuItems": [
+      {
+        "id": 1,
+        "name": "Çiğköfte Porsiyon",
+        "description": "100gr çiğköfte, marul, domates, soğan",
+        "price": 25.00,
+        "category": "Ana Yemek",
+        "isAvailable": true
+      },
+      {
+        "id": 2,
+        "name": "Çiğköfte Dürüm",
+        "description": "Çiğköfte, marul, domates, lavaş",
+        "price": 30.00,
+        "category": "Ana Yemek",
+        "isAvailable": true
+      },
+      {
+        "id": 3,
+        "name": "Acılı Çiğköfte",
+        "description": "Ekstra acılı çiğköfte porsiyon",
+        "price": 28.00,
+        "category": "Ana Yemek",
+        "isAvailable": true
+      },
+      {
+        "id": 4,
+        "name": "Patates Kızartması",
+        "description": "Çıtır patates kızartması",
+        "price": 15.00,
+        "category": "Yan Ürün",
+        "isAvailable": true
+      },
+      {
+        "id": 5,
+        "name": "Şalgam",
+        "description": "Geleneksel şalgam suyu",
+        "price": 8.00,
+        "category": "İçecek",
+        "isAvailable": true
+      }
+    ]
+  }
+]

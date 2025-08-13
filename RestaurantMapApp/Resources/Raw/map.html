@@ -1,0 +1,272 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        html, body, #map {
+            height: 100%;
+            margin: 0;
+        }
+
+        .leaflet-container {
+            font: 14px/1.4 sans-serif;
+        }
+
+        .custom-popup {
+            font-family: Arial, sans-serif;
+        }
+
+        .restaurant-name {
+            font-weight: bold;
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .restaurant-info {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        .restaurant-rating {
+            color: #f39c12;
+            font-weight: bold;
+        }
+
+        .menu-link {
+            display: inline-block;
+            background-color: #3498db;
+            color: white;
+            padding: 8px 16px;
+            text-decoration: none;
+            border-radius: 20px;
+            margin-top: 8px;
+            font-size: 14px;
+        }
+
+        .menu-link:hover {
+            background-color: #2980b9;
+        }
+
+        .status-open {
+            color: #27ae60;
+            font-weight: bold;
+        }
+
+        .status-closed {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        // İstanbul merkez
+        const map = L.map('map').setView([41.0082, 28.9784], 11);
+
+        // OpenStreetMap karoları
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors',
+            maxZoom: 18
+        }).addTo(map);
+
+        // Marker grupları
+        const markerGroup = L.layerGroup().addTo(map);
+        const markers = [];
+        
+        // Test marker'ları kaldırıldı - sadece arama yapıldığında marker'lar görünecek
+
+        // Restoran marker'larını ekle
+        function addMarkers(data) {
+            console.log('addMarkers çağrıldı, veri:', data);
+            
+            // Test mesajı ekle
+            const testDiv = document.createElement('div');
+            testDiv.style.cssText = 'position: absolute; top: 50px; left: 10px; background: blue; color: white; padding: 10px; z-index: 1000; font-size: 14px; border-radius: 5px;';
+            testDiv.textContent = `addMarkers çalışıyor: ${data.length} restoran`;
+            document.body.appendChild(testDiv);
+            
+            // Her restoran için debug bilgisi
+            data.forEach((restaurant, index) => {
+                console.log(`Restoran ${index + 1}:`, restaurant);
+                console.log(`Koordinatlar: ${restaurant.latitude}, ${restaurant.longitude}`);
+                console.log(`İsim: ${restaurant.name}`);
+                
+                // Koordinat kontrolü
+                if (typeof restaurant.latitude === 'number' && typeof restaurant.longitude === 'number') {
+                    console.log(`✅ Koordinatlar geçerli: ${restaurant.latitude}, ${restaurant.longitude}`);
+                } else {
+                    console.log(`❌ Koordinatlar geçersiz: ${restaurant.latitude}, ${restaurant.longitude}`);
+                }
+            });
+            
+            // Önce mevcut marker'ları temizle
+            markerGroup.clearLayers();
+            markers.length = 0;
+
+            data.forEach(restaurant => {
+                console.log(`Restoran işleniyor: ${restaurant.name} - Lat: ${restaurant.latitude}, Lng: ${restaurant.longitude}`);
+                
+                // Marker ikonu (açık/kapalı duruma göre)
+                const iconColor = restaurant.isOpen ? '#27ae60' : '#e74c3c';
+                const icon = L.divIcon({
+                    className: 'custom-marker',
+                    html: `<div style="
+                        background-color: ${iconColor};
+                        width: 20px;
+                        height: 20px;
+                        border-radius: 50%;
+                        border: 2px solid white;
+                        box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        color: white;
+                        font-size: 12px;
+                        font-weight: bold;
+                    ">📍</div>`,
+                    iconSize: [20, 20],
+                    iconAnchor: [10, 10]
+                });
+                
+                // Marker oluştur
+                console.log(`Marker oluşturuluyor: ${restaurant.name} - Koordinatlar: [${restaurant.latitude}, ${restaurant.longitude}]`);
+                
+                try {
+                    const marker = L.marker([restaurant.latitude, restaurant.longitude], { icon: icon })
+                        .addTo(markerGroup);
+                    
+                    // Marker'ı markers dizisine ekle
+                    markers.push(marker);
+                    
+                    console.log(`✅ Marker eklendi: ${restaurant.name}`);
+                    console.log(`Marker haritada mı:`, markerGroup.hasLayer(marker));
+                    console.log(`Toplam marker sayısı:`, markers.length);
+                    
+                    // Test mesajı güncelle
+                    const testDiv = document.querySelector('div[style*="background: blue"]');
+                    if (testDiv) {
+                        testDiv.textContent = `✅ Marker eklendi: ${restaurant.name}`;
+                    }
+                } catch (error) {
+                    console.error(`❌ Marker oluşturma hatası: ${restaurant.name}`, error);
+                    
+                    // Test mesajı güncelle
+                    const testDiv = document.querySelector('div[style*="background: blue"]');
+                    if (testDiv) {
+                        testDiv.textContent = `❌ Hata: ${restaurant.name}`;
+                        testDiv.style.background = 'red';
+                    }
+                }
+
+                // Popup içeriği
+                const statusClass = restaurant.isOpen ? 'status-open' : 'status-closed';
+                const statusText = restaurant.isOpen ? '🟢 Açık' : '🔴 Kapalı';
+                
+                const popupContent = `
+                    <div class="custom-popup">
+                        <div class="restaurant-name">${restaurant.name}</div>
+                        <div class="restaurant-info">📍 ${restaurant.address}</div>
+                        <div class="restaurant-rating">⭐ ${restaurant.rating}/5</div>
+                        <div class="restaurant-info">💰 ${'₺'.repeat(restaurant.priceRange)}</div>
+                        <div class="${statusClass}">${statusText}</div>
+                        <div class="restaurant-info">${restaurant.description}</div>
+                        <a href="app://menu/${restaurant.id}" class="menu-link">📋 Menüyü Gör</a>
+                    </div>
+                `;
+                
+                marker.bindPopup(popupContent, {
+                    maxWidth: 300,
+                    className: 'custom-popup'
+                });
+            });
+            
+            // Tüm marker'ları görünür yap
+            if (markers.length > 0) {
+                console.log('Marker bounds:', markers.map(m => m.getLatLng()));
+                
+                const group = new L.featureGroup(markers);
+                const bounds = group.getBounds();
+                console.log('Group bounds:', bounds);
+                
+                map.fitBounds(bounds.pad(0.1));
+                
+                // Test mesajı güncelle
+                const testDiv = document.querySelector('div[style*="background: blue"]');
+                if (testDiv) {
+                    testDiv.textContent = `✅ ${markers.length} marker eklendi ve harita güncellendi`;
+                    testDiv.style.background = 'green';
+                }
+                
+                console.log(`${markers.length} marker eklendi ve harita güncellendi`);
+            } else {
+                console.log('Hiç marker eklenemedi');
+                
+                // Test mesajı güncelle
+                const testDiv = document.querySelector('div[style*="background: blue"]');
+                if (testDiv) {
+                    testDiv.textContent = `❌ Hiç marker eklenemedi`;
+                    testDiv.style.background = 'red';
+                }
+            }
+        }
+
+        // MAUI tarafı bu fonksiyonu çağıracak
+        window.setRestaurantsJson = function (json) {
+            try { 
+                console.log('setRestaurantsJson çağrıldı, JSON:', json);
+                const data = JSON.parse(json); 
+                console.log('Parse edilen veri:', data);
+                
+                // Test mesajı ekle
+                const testDiv = document.createElement('div');
+                testDiv.style.cssText = 'position: absolute; top: 10px; left: 10px; background: red; color: white; padding: 10px; z-index: 1000; font-size: 14px; border-radius: 5px;';
+                testDiv.textContent = `JSON alındı: ${data.length} restoran`;
+                document.body.appendChild(testDiv);
+                
+                // Önceki marker'ları temizle
+                markerGroup.clearLayers();
+                markers.length = 0;
+                
+                // Yeni marker'ları ekle
+                if (data && data.length > 0) {
+                    addMarkers(data);
+                } else {
+                    console.log('Harita temizlendi - hiç restoran yok');
+                }
+            } catch (e) { 
+                console.error('JSON parse hatası:', e); 
+            }
+        }
+
+        // Harita kontrolleri
+        window.centerOnIstanbul = function() {
+            map.setView([41.0082, 28.9784], 11);
+        }
+
+        // Harita tıklama olayı
+        map.on('click', function(e) {
+            console.log('Harita tıklandı:', e.latlng);
+        });
+        
+        // Harita hazır olduğunda test marker ekle
+        map.whenReady(function() {
+            console.log('Harita hazır');
+            
+            // Test marker ekle
+            const testMarker = L.marker([41.0082, 28.9784]).addTo(map);
+            testMarker.bindPopup('Test Marker - Harita çalışıyor!');
+            console.log('Test marker eklendi');
+        });
+
+        // Zoom değişikliği
+        map.on('zoomend', function() {
+            console.log('Zoom seviyesi:', map.getZoom());
+        });
+    </script>
+</body>
+</html>
